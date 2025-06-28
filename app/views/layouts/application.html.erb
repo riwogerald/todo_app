@@ -16,13 +16,41 @@
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
+    
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag "application", media: "all", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+      <div class="container">
+        <%= link_to "Task Manager", tasks_path, class: "navbar-brand fw-bold" %>
+        
+        <div class="navbar-nav ms-auto">
+          <%= link_to tasks_path, class: "nav-link #{'active' if current_page?(tasks_path)}" do %>
+            <i class="bi bi-list-task me-1"></i>
+            All Tasks
+          <% end %>
+          <%= link_to new_task_path, class: "nav-link #{'active' if current_page?(new_task_path)}" do %>
+            <i class="bi bi-plus-circle me-1"></i>
+            New Task
+          <% end %>
+        </div>
+      </div>
+    </nav>
+
+    <main class="min-vh-100">
+      <%= yield %>
+    </main>
+
+    <footer class="bg-dark text-light py-4 mt-5">
+      <div class="container text-center">
+        <p class="mb-0">&copy; <%= Date.current.year %> Task Manager. Built with Ruby on Rails.</p>
+      </div>
+    </footer>
   </body>
 </html>
