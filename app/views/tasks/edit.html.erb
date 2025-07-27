@@ -1,12 +1,18 @@
-<% content_for :title, "Editing task" %>
+<% content_for :title, "Edit Task" %>
 
-<h1>Editing task</h1>
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-12">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <%= link_to "Tasks", tasks_path, class: "text-decoration-none" %>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">Edit Task</li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+</div>
 
 <%= render "form", task: @task %>
-
-<br>
-
-<div>
-  <%= link_to "Show this task", @task %> |
-  <%= link_to "Back to tasks", tasks_path %>
-</div>
