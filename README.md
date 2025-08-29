@@ -5,9 +5,9 @@
 [![Ruby on Rails](https://img.shields.io/badge/Ruby_on_Rails-8.0-CC0000?logo=ruby-on-rails)](https://rubyonrails.org/)
 [![Ruby Version](https://img.shields.io/badge/Ruby-3.4.1-red?logo=ruby)](https://www.ruby-lang.org/)
 [![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-7952B3?logo=bootstrap)](https://getbootstrap.com/)
-[![Live Demo](https://img.shields.io/badge/Live_Demo-Netlify-00C7B7?logo=netlify)](https://task-masterlist.netlify.app/)
+[![Live Demo](https://img.shields.io/badge/Live_Demo-Railway-0B0D0E?logo=railway)](https://task-masterlist-production.up.railway.app/)
 
-**[🚀 Live Demo](https://task-masterlist.netlify.app/)**
+**[🚀 Live Demo](https://task-masterlist-production.up.railway.app/)**
 
 ## ✨ Overview
 
@@ -147,20 +147,56 @@ end
 
 ## 🚀 Deployment
 
-### **Production with Kamal**
-```bash
-# Configure deployment settings
-edit config/deploy.yml
+### **🚂 Railway (Recommended)**
 
-# Set up secrets
-edit .kamal/secrets
+1. **Connect your GitHub repository to Railway**
+   - Visit [railway.app](https://railway.app)
+   - Connect your GitHub account
+   - Import your `todo_app` repository
 
-# Deploy
-bin/kamal setup    # First time
-bin/kamal deploy   # Updates
-```
+2. **Railway will automatically detect and deploy your Rails app**
+   - Uses the included `railway.toml` configuration
+   - Sets up database automatically
+   - Handles environment variables
 
-### **Docker Deployment**
+3. **Set environment variables in Railway dashboard:**
+   ```
+   RAILS_MASTER_KEY=your-master-key-from-config/master.key
+   ```
+
+### **🎨 Render.com**
+
+1. **Create account and connect repository**
+   - Visit [render.com](https://render.com)
+   - Connect GitHub and select your repository
+
+2. **Render uses the included `render.yaml`**
+   - Automatically sets up web service and database
+   - Runs migrations and seeds data
+
+3. **Environment variables:**
+   ```
+   RAILS_MASTER_KEY=your-master-key
+   ```
+
+### **🔺 Heroku**
+
+1. **Install Heroku CLI and login**
+   ```bash
+   heroku create task-masterlist-yourname
+   ```
+
+2. **Set environment variables:**
+   ```bash
+   heroku config:set RAILS_MASTER_KEY=your-master-key
+   ```
+
+3. **Deploy:**
+   ```bash
+   git push heroku master
+   ```
+
+### **🐳 Docker Deployment**
 ```bash
 # Build the image
 docker build -t task-masterlist .
@@ -170,6 +206,15 @@ docker run -d -p 80:80 \
   -e RAILS_MASTER_KEY=your-master-key \
   --name task-masterlist task-masterlist
 ```
+
+### **❌ Why Not Netlify?**
+
+Netlify is a static hosting service and **cannot run Ruby on Rails applications**. Rails apps require:
+- Server-side Ruby execution
+- Database operations
+- Dynamic content generation
+
+For static site generators, use Netlify. For Rails apps, use Railway, Render, or Heroku.
 
 ### **Environment Variables**
 - `RAILS_MASTER_KEY`: Encryption key for credentials
