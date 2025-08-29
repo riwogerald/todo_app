@@ -24,8 +24,40 @@
             <%= form.label :title, class: "form-label fw-semibold" %>
             <%= form.text_field :title, 
                 class: "form-control form-control-lg", 
-                placeholder: "Enter task description...",
+                placeholder: "Enter task title...",
                 autofocus: true %>
+          </div>
+
+          <div class="mb-4">
+            <%= form.label :description, class: "form-label fw-semibold" %>
+            <%= form.text_area :description, 
+                class: "form-control", 
+                rows: 3,
+                placeholder: "Enter task description (optional)..." %>
+          </div>
+
+          <div class="row mb-4">
+            <div class="col-md-6">
+              <%= form.label :category, class: "form-label fw-semibold" %>
+              <%= form.select :category, 
+                  options_for_select(Task::CATEGORIES.map { |c| [c, c] }, task.category), 
+                  { prompt: 'Select a category' }, 
+                  { class: "form-select" } %>
+            </div>
+            <div class="col-md-6">
+              <%= form.label :priority, class: "form-label fw-semibold" %>
+              <%= form.select :priority, 
+                  options_for_select(Task::PRIORITY_LABELS.map { |k, v| [v[:label], k] }, task.priority), 
+                  { prompt: 'Select priority' }, 
+                  { class: "form-select" } %>
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <%= form.label :due_date, class: "form-label fw-semibold" %>
+            <%= form.datetime_local_field :due_date, 
+                class: "form-control",
+                value: (task.due_date&.strftime('%Y-%m-%dT%H:%M') if task.due_date) %>
           </div>
 
           <div class="mb-4">

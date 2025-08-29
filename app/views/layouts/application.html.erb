@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Todo App" %></title>
+    <title><%= content_for(:title) || "Task MasterList" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
@@ -28,7 +28,7 @@
   <body class="bg-light">
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
       <div class="container">
-        <%= link_to "Task Manager", tasks_path, class: "navbar-brand fw-bold" %>
+        <%= link_to "Task MasterList", tasks_path, class: "navbar-brand fw-bold" %>
         
         <div class="navbar-nav ms-auto">
           <%= link_to tasks_path, class: "nav-link #{'active' if current_page?(tasks_path)}" do %>
@@ -49,7 +49,7 @@
 
     <footer class="bg-dark text-light py-4 mt-5">
       <div class="container text-center">
-        <p class="mb-0">&copy; <%= Date.current.year %> Task Manager. Built with Ruby on Rails.</p>
+        <p class="mb-0">&copy; <%= Date.current.year %> Task MasterList. Built with Ruby on Rails.</p>
       </div>
     </footer>
   </body>

@@ -37,18 +37,68 @@
             </p>
           </div>
 
+          <% if @task.description.present? %>
+            <div class="mb-4">
+              <h6 class="text-muted mb-2">Description</h6>
+              <p class="<%= 'text-muted' if @task.completed %>">
+                <%= simple_format(@task.description) %>
+              </p>
+            </div>
+          <% end %>
+
+          <div class="row mb-4">
+            <div class="col-md-6">
+              <h6 class="text-muted mb-2">Priority</h6>
+              <div class="d-flex align-items-center">
+                <i class="bi bi-<%= @task.priority_icon %> text-<%= @task.priority_color %> me-2"></i>
+                <span class="fw-semibold"><%= @task.priority_label %></span>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <h6 class="text-muted mb-2">Category</h6>
+              <span class="badge bg-<%= @task.category == 'Work' ? 'primary' : @task.category == 'Personal' ? 'info' : 'secondary' %> fs-6">
+                <%= @task.category %>
+              </span>
+            </div>
+          </div>
+
           <div class="mb-4">
             <h6 class="text-muted mb-2">Status</h6>
             <div class="d-flex align-items-center">
               <% if @task.completed %>
                 <i class="bi bi-check-circle-fill text-success me-2"></i>
                 <span class="text-success fw-semibold">Completed</span>
+              <% elsif @task.overdue? %>
+                <i class="bi bi-exclamation-triangle-fill text-danger me-2"></i>
+                <span class="text-danger fw-semibold">Overdue</span>
+              <% elsif @task.due_today? %>
+                <i class="bi bi-calendar-day text-warning me-2"></i>
+                <span class="text-warning fw-semibold">Due Today</span>
               <% else %>
-                <i class="bi bi-circle text-warning me-2"></i>
-                <span class="text-warning fw-semibold">Pending</span>
+                <i class="bi bi-clock text-secondary me-2"></i>
+                <span class="text-secondary fw-semibold">Pending</span>
               <% end %>
             </div>
           </div>
+
+          <% if @task.due_date.present? %>
+            <div class="mb-4">
+              <h6 class="text-muted mb-2">Due Date</h6>
+              <div class="d-flex align-items-center">
+                <i class="bi bi-calendar3 me-2 <%= 'text-danger' if @task.overdue? %>"></i>
+                <span class="<%= 'text-danger fw-bold' if @task.overdue? %>">
+                  <%= @task.due_date.strftime("%B %d, %Y at %I:%M %p") %>
+                </span>
+              </div>
+              <% if @task.due_date.present? && !@task.completed? %>
+                <div class="progress mt-2" style="height: 6px;">
+                  <div class="progress-bar <%= @task.overdue? ? 'bg-danger' : 'bg-primary' %>" 
+                       style="width: <%= [@task.progress_percentage, 100].min %>%"></div>
+                </div>
+                <small class="text-muted">Progress: <%= @task.progress_percentage %>%</small>
+              <% end %>
+            </div>
+          <% end %>
 
           <div class="row">
             <div class="col-sm-6">
